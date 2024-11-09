@@ -1,0 +1,43 @@
+version: "3.8"
+name: "PHVR"
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      db:
+        condition: service_healthy
+    env_file: ./.env
+    ports:
+      - $SPRING_LOCAL_PORT:$SPRING_DOCKER_PORT
+    volumes:
+      - ".m2:/root/.m2"
+    networks:
+      - phvr
+
+  db:
+    image: mongo:5.0
+    restart: always
+    env_file: ./.env
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: $MONGODB_USER
+      MONGO_INITDB_ROOT_PASSWORD: $MONGODB_PASSWORD
+    ports:
+      - $MONGODB_LOCAL_PORT:$MONGODB_DOCKER_PORT
+    healthcheck:
+      test: echo 'db.runCommand("ping").ok' |  mongosh db:${MONGODB_DOCKER_PORT}/${MONGODB_DATABASE} --quiet
+      interval: 30s
+      timeout: 10s
+      retries: 5
+    volumes:
+      - mongo:/var/lib/mongo/data
+    networks:
+      - phvr
+
+volumes:
+  mongo:
+
+networks:
+  phvr:
