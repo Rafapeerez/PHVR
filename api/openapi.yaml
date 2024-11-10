@@ -1,0 +1,123 @@
+openapi: 3.0.0
+
+info:
+  title: Phrasal Verbs API
+  version: 0.0.1
+  contact:
+    email: rapeop1c@gmail.com
+    name: Rafael Emilio Pérez López
+  description: Side project, API for phrasal verbs
+
+servers:
+  - url: http://localhost:8080
+    description: Integration environment
+  
+tags:
+  - name: Verbs Controller
+    description: "Operations with prhasal verbs"
+
+paths:
+  /v1/verbs:
+    get:
+      description: "Get phrasal verbs"
+      tags:
+        - Verbs Controller
+      operationId: getVerbs
+      responses:
+        "200":
+          description: Ok. Ger a list of verbs
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Verb"
+        "400":
+          $ref: "#/components/responses/Error400"
+        "401":
+          $ref: "#/components/responses/Error401"
+        "500":
+          $ref: "#/components/responses/Error500"
+
+components:
+  responses:
+    Error400:
+      description: "Bad request, some parameter is wrong."
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+
+    Error401:
+      description: "Unauthorized, bad user credentials."
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+
+    Error500:
+      description: "Internal Server Error."
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+
+
+  schemas:
+    Error:
+      type: object
+      additionalProperties: false
+      required:
+        - extraInfo
+        - id
+      properties:
+        extraInfo:
+          $ref: "#/components/schemas/Text500chars"
+        instance:
+          $ref: "#/components/schemas/Text500chars"
+        id:
+          $ref: "#/components/schemas/UniversallyUniqueIdentifier"
+      description: |-
+        Information about an error with the following fields:
+        - code: Specific error code, check its documentation to know what each error means.
+        - extraInfo: Extra info about the error, usually empty
+        - instance: Debug mode only info
+        - id: Unique identifier of the error
+      example:
+        extraInfo: ""
+        id: "c9baea40-cf58-481f-8666-ea48a9ef75b8"
+
+    Text500chars:
+      type: string
+      pattern: ^[a-zA-Z0-9áéíóúÁÉÍÓÚüÜñÑ \/\\.,:;\-_+*=(){}%¡!¿?&\'"ºª@\r\n]*$
+      maxLength: 500
+      description: "Free text with a maximum of 500 characters"
+      example: "This is a text with a maximum of 500 characters"
+
+    UniversallyUniqueIdentifier:
+      type: string
+      format: uuid
+      example: c9baea40-cf58-481f-8666-ea48a9ef75b8
+      pattern: ^[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{12}$
+      minLength: 36
+      maxLength: 36
+      x-42c-format: o:uuid
+
+    Verb:
+      type: object
+      required:
+        - verb
+        - meaning
+      properties:
+        verb:
+          type: string
+        meaning:
+          type: string
+        creationDateTime:
+          type: string
+          format: date-time
+        examples:
+          type: array
+          items:
+            type: string
+      
