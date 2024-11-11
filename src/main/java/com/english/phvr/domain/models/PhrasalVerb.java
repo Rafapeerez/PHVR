@@ -5,10 +5,12 @@ import java.util.List;
 import java.util.UUID;
 
 import lombok.Builder;
+import lombok.Data;
 
 @Builder
-public class Verb {
-    
+@Data
+public class PhrasalVerb {
+
     UUID id;
     String verb;
     String meaning;
