@@ -19,7 +19,7 @@ public class PhrasalVerbAdapter implements PhrasalVerbRepository {
     @Override
     public List<PhrasalVerb> getPhrasalVerbs(int limit) {
         Stream<PhrasalVerbEntity> verbs = mongoRepository.findRandomPhrasalVerbs(limit).stream();
-        return verbs.map(PhrasalVerbMapper.INSTANCE::toVerb).toList();
+        return verbs.map(PhrasalVerbMapper::toVerb).toList();
     }
 
 }

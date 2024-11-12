@@ -6,11 +6,11 @@ import static org.mockito.Mockito.when;
 
 import java.util.List;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.english.phvr.domain.models.PhrasalVerb;
 import com.english.phvr.infrastructure.persistence.daos.PhrasalVerbMongoRepository;
@@ -19,6 +19,7 @@ import com.english.phvr.infrastructure.persistence.mapper.PhrasalVerbMapper;
 import com.english.phvr.infrastructure.persistence.repository.PhrasalVerbAdapter;
 import com.english.phvr.mother.InfoObjectMother;
 
+@ExtendWith(MockitoExtension.class)
 class PhrasalVerbAdapterTest {
 
     @Mock
@@ -27,16 +28,11 @@ class PhrasalVerbAdapterTest {
     @InjectMocks
     private PhrasalVerbAdapter phrasalVerbAdapter;
 
-    @BeforeEach
-    void setUp() {
-        MockitoAnnotations.openMocks(this);
-    }
-
     @Test
     void shouldGetRandomVerb() {
         // GIVEN
-        PhrasalVerbEntity firstEntity = PhrasalVerbMapper.INSTANCE.toEntity(InfoObjectMother.createPhrasalVerb1());
-        PhrasalVerbEntity secondEntity = PhrasalVerbMapper.INSTANCE.toEntity(InfoObjectMother.createPhrasalVerb2());
+        PhrasalVerbEntity firstEntity = PhrasalVerbMapper.toEntity(InfoObjectMother.createPhrasalVerb1());
+        PhrasalVerbEntity secondEntity = PhrasalVerbMapper.toEntity(InfoObjectMother.createPhrasalVerb2());
 
         List<PhrasalVerbEntity> entityVerbs = List.of(firstEntity, secondEntity);
 

@@ -1,17 +1,29 @@
 package com.english.phvr.infrastructure.persistence.mapper;
 
-import org.mapstruct.Mapper;
-import org.mapstruct.factory.Mappers;
+import java.util.UUID;
 
 import com.english.phvr.domain.models.PhrasalVerb;
 import com.english.phvr.infrastructure.persistence.entity.PhrasalVerbEntity;
 
-@Mapper
-public interface PhrasalVerbMapper {
+public class PhrasalVerbMapper {
 
-    PhrasalVerbMapper INSTANCE = Mappers.getMapper(PhrasalVerbMapper.class);
+    public static PhrasalVerb toVerb(PhrasalVerbEntity verbEntity) {
+        return PhrasalVerb.builder()
+                .id(UUID.fromString(verbEntity.getId()))
+                .verb(verbEntity.getVerb())
+                .meaning(verbEntity.getMeaning())
+                .creationDateTime(verbEntity.getCreationDateTime())
+                .examples(verbEntity.getExamples())
+                .build();
+    }
 
-    PhrasalVerb toVerb(PhrasalVerbEntity verbEntity);
-
-    PhrasalVerbEntity toEntity(PhrasalVerb phrasalVerb);
+    public static PhrasalVerbEntity toEntity(PhrasalVerb phrasalVerb) {
+        return PhrasalVerbEntity.builder()
+                .id(phrasalVerb.getId().toString())
+                .verb(phrasalVerb.getVerb())
+                .meaning(phrasalVerb.getMeaning())
+                .creationDateTime(phrasalVerb.getCreationDateTime())
+                .examples(phrasalVerb.getExamples())
+                .build();
+    }
 }

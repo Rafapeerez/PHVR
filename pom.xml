@@ -31,7 +31,6 @@
 
     	<openapi-generator.version>7.9.0</openapi-generator.version>
     	<jackson-databind.version>0.2.6</jackson-databind.version>
-		<org.mapstruct.version>1.6.3</org.mapstruct.version>
 	</properties>
 
 	<!-- SPRING -->
@@ -74,13 +73,6 @@
 		    <artifactId>spring-boot-starter-data-mongodb</artifactId>
 		</dependency>
 
-		<!-- MAP STRUCT -->
-    	<dependency>
-    	    <groupId>org.mapstruct</groupId>
-    	    <artifactId>mapstruct</artifactId>
-    	    <version>${org.mapstruct.version}</version>
-    	</dependency>
-
 		<!-- OPEN API -->
 		<dependency>
     		<groupId>org.openapitools</groupId>
@@ -119,23 +111,6 @@
 			</plugin>
 
 			<plugin>
-            	<groupId>org.apache.maven.plugins</groupId>
-            	<artifactId>maven-compiler-plugin</artifactId>
-            	<version>3.8.1</version>
-            	<configuration>
-            	    <source>21</source> 
-            	    <target>21</target> 
-            	    <annotationProcessorPaths>
-            	        <path>
-            	            <groupId>org.mapstruct</groupId>
-            	            <artifactId>mapstruct-processor</artifactId>
-            	            <version>${org.mapstruct.version}</version>
-            	        </path>
-            	    </annotationProcessorPaths>
-            	</configuration>
-        	</plugin>
-
-			<plugin>
         		<groupId>org.openapitools</groupId>
         		<artifactId>openapi-generator-maven-plugin</artifactId>
         		<version>${openapi-generator.version}</version>
@@ -150,7 +125,6 @@
               				  <skipFormModel>false</skipFormModel>
         					</globalProperties>
         					<inputSpec>${project.basedir}/api/openapi.yaml</inputSpec>
-        					<!-- <templateDirectory>${project.basedir}/api/codegen-templates</templateDirectory> -->
         					<output>${project.build.directory}/generated-sources/openapi</output>
         					<apiPackage>com.english.phvr.infrastructure.rest.api</apiPackage>
         					<modelPackage>com.english.phvr.infrastructure.rest.dto</modelPackage>
