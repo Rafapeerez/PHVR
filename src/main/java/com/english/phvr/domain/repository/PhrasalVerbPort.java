@@ -4,6 +4,6 @@ import java.util.List;
 
 import com.english.phvr.domain.models.PhrasalVerb;
 
-public interface PhrasalVerbRepository {
+public interface PhrasalVerbPort {
     List<PhrasalVerb> getPhrasalVerbs(int limit);
 }

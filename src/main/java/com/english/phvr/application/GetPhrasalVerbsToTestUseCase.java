@@ -3,16 +3,17 @@ package com.english.phvr.application;
 import java.util.List;
 
 import com.english.phvr.domain.models.PhrasalVerb;
-import com.english.phvr.infrastructure.persistence.repository.PhrasalVerbAdapter;
+import com.english.phvr.domain.repository.PhrasalVerbPort;
 
-import lombok.RequiredArgsConstructor;
-
-@RequiredArgsConstructor
 public class GetPhrasalVerbsToTestUseCase {
 
-    private PhrasalVerbAdapter adapter;
+    private PhrasalVerbPort repository;
 
-    List<PhrasalVerb> execute(int limit) {
-        return adapter.getPhrasalVerbs(limit);
+    public GetPhrasalVerbsToTestUseCase(PhrasalVerbPort phrasalVerbRepository) {
+        this.repository = phrasalVerbRepository;
+    }
+
+    public List<PhrasalVerb> execute(int limit) {
+        return repository.getPhrasalVerbs(limit);
     }
 }

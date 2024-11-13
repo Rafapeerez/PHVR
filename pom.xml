@@ -132,6 +132,7 @@
         					<modelNameSuffix>DTO</modelNameSuffix>
         					<skipIfSpecIsUnchanged>true</skipIfSpecIsUnchanged>
         					<configOptions>
+								<generateBuilders>true</generateBuilders>
             					<serializableModel>false</serializableModel>
             					<sortParamsByRequiredFlag>true</sortParamsByRequiredFlag>
             					<sortModelPropertiesByRequiredFlag>true</sortModelPropertiesByRequiredFlag>
@@ -139,8 +140,7 @@
             					<allowUnicodeIdentifiers>false</allowUnicodeIdentifiers>
             					<prependFormOrBodyParameters>true</prependFormOrBodyParameters>
             					<legacyDiscriminatorBehavior>true</legacyDiscriminatorBehavior>
-            					<disallowAdditionalPropertiesIfNotPresent>false
-            					</disallowAdditionalPropertiesIfNotPresent>
+            					<disallowAdditionalPropertiesIfNotPresent>false</disallowAdditionalPropertiesIfNotPresent>
             					<dateLibrary>java8</dateLibrary>
             					<booleanGetterPrefix>is</booleanGetterPrefix>
             					<openApiNullable>true</openApiNullable>
