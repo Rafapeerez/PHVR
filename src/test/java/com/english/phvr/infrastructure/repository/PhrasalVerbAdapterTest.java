@@ -1,7 +1,10 @@
 package com.english.phvr.infrastructure.repository;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.util.List;
@@ -43,5 +46,19 @@ class PhrasalVerbAdapterTest {
 
         // THEN
         assertEquals(2, result.size());
+    }
+
+    @Test
+    void shouldInsertAPhrasalVerb() {
+        // GIVEN
+        PhrasalVerb phrasalVerb = InfoObjectMother.createPhrasalVerb1();
+
+        when(mongoRepository.save(any())).thenReturn(phrasalVerb);
+
+        // WHEN
+        phrasalVerbAdapter.insertPhrasalVerb(phrasalVerb);
+
+        // THEN
+        verify(mongoRepository, times(1)).save(any());
     }
 }
