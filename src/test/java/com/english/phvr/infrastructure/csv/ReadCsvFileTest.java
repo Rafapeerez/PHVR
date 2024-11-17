@@ -21,15 +21,14 @@ class ReadCsvFileTest {
 
     @Test
     void shouldReadACsvFile() throws IOException {
-
         // GIVEN
         String fileContent = " header\n" +
-                "verb,meaning,-\n"
-                +
-                "verb1,meaning1,-\n";
+            "verb,meaning,-\n"
+            +
+            "verb1,meaning1,-\n"
+        ;
 
-        ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(
-                fileContent.getBytes(StandardCharsets.UTF_8));
+        ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(fileContent.getBytes(StandardCharsets.UTF_8));
         Import importObject = Import.builder().summary(new HashMap<>()).build();
 
         // WHEN
@@ -41,5 +40,24 @@ class ReadCsvFileTest {
         assertEquals("meaning", result.get(0).getMeaning());
         assertEquals("verb1", result.get(1).getVerb());
         assertEquals("meaning1", result.get(1).getMeaning());
+    }
+
+    @Test
+    void shouldThrowAExceptionBecauseOfTheFormat() throws IOException{
+         // GIVEN
+        String fileContent = " header\n" +
+            "verb,meaning\n"
+            +
+            "verb1,meaning1,-,-\n"
+        ;
+
+        ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(fileContent.getBytes(StandardCharsets.UTF_8));
+        Import importObject = Import.builder().summary(new HashMap<>()).build();
+
+        // WHEN
+        List<PhrasalVerb> result = ReadCsvFile.readInformation(byteArrayInputStream, importObject).toList();
+
+        // THEN
+        assertEquals(2, importObject.getSummary().size());
     }
 }
