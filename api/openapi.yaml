@@ -25,7 +25,7 @@ paths:
       operationId: getVerbs
       responses:
         "200":
-          description: Ok. Ger a list of verbs
+          description: Ok. Get a list of verbs
           content:
             application/json:
               schema:
@@ -38,6 +38,30 @@ paths:
           $ref: "#/components/responses/Error401"
         "500":
           $ref: "#/components/responses/Error500"
+
+    post:        
+      description: "Import phrasal verbs from a CSV file."
+      tags: 
+        - Verbs Controller
+      operationId: uploadPhrasalVerbs
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              $ref: "#/components/schemas/File"
+      responses:
+        "202":
+          description: Acknowledge, import process in progress
+          content:
+            application/json:
+              schema:
+                type: string
+        "400":
+          $ref: "#/components/responses/Error400"
+        "500":
+          $ref: "#/components/responses/Error500"
+
 
 components:
   responses:
@@ -121,3 +145,11 @@ components:
           items:
             type: string
       
+    File:
+      type: object
+      required:
+        - file
+      properties:
+        file:
+          type: string
+          format: binary
