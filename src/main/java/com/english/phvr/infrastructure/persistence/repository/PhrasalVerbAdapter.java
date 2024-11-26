@@ -27,7 +27,7 @@ public class PhrasalVerbAdapter implements PhrasalVerbPort {
 
     @Override
     public void insertPhrasalVerb(PhrasalVerb verb) {
-        mongoRepository.save(verb);
+        PhrasalVerbMapper.toVerb(mongoRepository.save(PhrasalVerbMapper.toEntity(verb)));
     }
 
 }

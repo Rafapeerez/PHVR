@@ -53,7 +53,7 @@ class PhrasalVerbAdapterTest {
         // GIVEN
         PhrasalVerb phrasalVerb = InfoObjectMother.createPhrasalVerb1();
 
-        when(mongoRepository.save(any())).thenReturn(phrasalVerb);
+        when(mongoRepository.save(any())).thenReturn(PhrasalVerbMapper.toEntity(phrasalVerb));
 
         // WHEN
         phrasalVerbAdapter.insertPhrasalVerb(phrasalVerb);

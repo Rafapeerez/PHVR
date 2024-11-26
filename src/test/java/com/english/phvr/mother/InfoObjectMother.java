@@ -1,7 +1,9 @@
 package com.english.phvr.mother;
 
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import com.english.phvr.domain.models.Import;
@@ -47,13 +49,14 @@ public class InfoObjectMother {
     }
 
     public static Import createImport() {
+        Map<String, String> map = new HashMap<>();
         return Import.builder()
             .id(UUID.randomUUID())
             .fileName("file.txt")
             .status(ImportStatusEnum.OK)
             .startDateTime(LocalDateTime.of(2024, 11, 11, 19, 34, 0))
             .endDateTime(LocalDateTime.of(2024, 11, 11, 19, 34, 20))
-            .summary(null)
+            .summary(map)
         .build();
     }
 }

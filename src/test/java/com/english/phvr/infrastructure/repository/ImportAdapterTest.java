@@ -15,6 +15,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.english.phvr.domain.models.Import;
 import com.english.phvr.infrastructure.persistence.daos.ImportMongoRepository;
+import com.english.phvr.infrastructure.persistence.mapper.ImportMapper;
 import com.english.phvr.infrastructure.persistence.repository.ImportAdapter;
 import com.english.phvr.mother.InfoObjectMother;
 
@@ -32,7 +33,7 @@ class ImportAdapterTest {
         // GIVEN
         Import importObject = InfoObjectMother.createImport();
 
-        when(mongoRepository.save(any())).thenReturn(importObject);
+        when(mongoRepository.save(any())).thenReturn(ImportMapper.toEntity(importObject));
 
         // WHEN
         Import result = importAdapter.saveImport(importObject);
