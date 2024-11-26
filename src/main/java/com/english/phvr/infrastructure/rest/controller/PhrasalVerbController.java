@@ -28,5 +28,4 @@ public class PhrasalVerbController implements VerbsControllerApi {
 
         return ResponseEntity.ok().body(verbs);
     }
-
 }

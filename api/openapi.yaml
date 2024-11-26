@@ -14,7 +14,9 @@ servers:
   
 tags:
   - name: Verbs Controller
-    description: "Operations with prhasal verbs"
+    description: "Operations with phrasal verbs"
+  - name: Imports Controller
+    description: "Operations with files"
 
 paths:
   /v1/verbs:
@@ -39,10 +41,11 @@ paths:
         "500":
           $ref: "#/components/responses/Error500"
 
+  /v1/imports:
     post:        
       description: "Import phrasal verbs from a CSV file."
       tags: 
-        - Verbs Controller
+        - Imports Controller
       operationId: uploadPhrasalVerbs
       requestBody:
         required: true
