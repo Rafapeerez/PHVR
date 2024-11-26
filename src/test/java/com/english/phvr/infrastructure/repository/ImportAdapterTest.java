@@ -42,4 +42,19 @@ class ImportAdapterTest {
         verify(mongoRepository, times(1)).save(any());
         assertEquals(importObject.getFileName(), result.getFileName());
     }
+
+    @Test
+    void shouldUpdateAnImport() {
+        // GIVEN
+        Import importObject = InfoObjectMother.createImport();
+
+        when(mongoRepository.save(any())).thenReturn(ImportMapper.toEntity(importObject));
+
+        // WHEN
+        Import result = importAdapter.updateImport(importObject);
+
+        // THEN
+        verify(mongoRepository, times(1)).save(any());
+        assertEquals(importObject.getFileName(), result.getFileName());
+    }
 }

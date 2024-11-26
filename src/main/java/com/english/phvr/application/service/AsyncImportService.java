@@ -10,6 +10,7 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import com.english.phvr.application.SavePhrasalVerbUseCase;
+import com.english.phvr.application.UpdateImportUseCase;
 import com.english.phvr.domain.models.Import;
 import com.english.phvr.domain.models.PhrasalVerb;
 import com.english.phvr.domain.models.enums.ImportStatusEnum;
@@ -20,6 +21,8 @@ import com.english.phvr.domain.models.enums.ImportStatusEnum;
 public class AsyncImportService {
 
     private final SavePhrasalVerbUseCase savePhrasalVerbUseCase;
+
+    private final UpdateImportUseCase updateImportUseCase;
 
     @Async
     public CompletableFuture<Void> asyncProcess(Stream<PhrasalVerb> verbs, Import importObject) {
@@ -33,13 +36,14 @@ public class AsyncImportService {
             ImportStatusEnum status = decideImportStatus(importErrors, totalRows);
 
             Import importToUpdate = Import.builder()
+                .id(importObject.getId())
+                .startDateTime(importObject.getStartDateTime())
                 .endDateTime(LocalDateTime.now())
                 .status(status)
-                .totalRows(totalRows)
                 .summary(importErrors)
                 .build();
 
-            // updateImportUseCase.execute(importObject.getId(), importToUpdate);
+            updateImportUseCase.execute(importToUpdate);
         });
     }
 

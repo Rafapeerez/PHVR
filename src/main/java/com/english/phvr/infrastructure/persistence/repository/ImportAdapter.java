@@ -19,5 +19,10 @@ public class ImportAdapter implements ImportPort {
     public Import saveImport(Import importObject) {
         return ImportMapper.toImport(mongoRepository.save(ImportMapper.toEntity(importObject)));
     }
+
+    @Override
+    public Import updateImport(Import importObject) {
+        return ImportMapper.toImport(mongoRepository.save(ImportMapper.toEntity(importObject)));
+    }
     
 }

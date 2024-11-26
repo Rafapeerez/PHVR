@@ -6,4 +6,6 @@ public interface ImportPort {
 
     public Import saveImport(Import importObject);
 
+    public Import updateImport(Import importObject);
+
 }
