@@ -4,7 +4,9 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
+import com.english.phvr.domain.models.Import;
 import com.english.phvr.domain.models.PhrasalVerb;
+import com.english.phvr.domain.models.enums.ImportStatusEnum;
 
 public class InfoObjectMother {
 
@@ -42,5 +44,16 @@ public class InfoObjectMother {
                 .creationDateTime(LocalDateTime.of(2024, 11, 11, 19, 34, 0))
                 .examples(examples)
                 .build();
+    }
+
+    public static Import createImport() {
+        return Import.builder()
+            .id(UUID.randomUUID())
+            .fileName("file.txt")
+            .status(ImportStatusEnum.OK)
+            .startDateTime(LocalDateTime.of(2024, 11, 11, 19, 34, 0))
+            .endDateTime(LocalDateTime.of(2024, 11, 11, 19, 34, 20))
+            .summary(null)
+        .build();
     }
 }
